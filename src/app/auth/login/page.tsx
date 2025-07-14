@@ -1,4 +1,46 @@
+"use client";
+import { loginUser } from "@/lib/store/auth/authSlice";
+import { Status } from "@/lib/store/global/types";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import Link from "next/link";
 function Login() {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { status, user } = useAppSelector((store) => store.auth);
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  });
+  // console.log(data, "datacheck");
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData({
+      ...data,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(loginUser(data));
+  };
+  useEffect(() => {
+    const value = localStorage.getItem("token");
+    if (value) {
+      redirect("/");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === Status.Success && user.token) {
+      router.push("/");
+    } else {
+      router.push("/auth/login");
+    }
+  }, [status, user.token]);
+
   return (
     <>
       <div>
@@ -22,7 +64,12 @@ function Login() {
                 <h1 className="pt-8 pb-6 font-bold dark:text-gray-400 text-5xl text-center cursor-default">
                   Log in
                 </h1>
-                <form action="#" method="post" className="space-y-4">
+                <form
+                  onSubmit={handleSubmit}
+                  action="#"
+                  method="post"
+                  className="space-y-4"
+                >
                   <div>
                     <label
                       htmlFor="email"
@@ -31,7 +78,9 @@ function Login() {
                       Email
                     </label>
                     <input
+                      onChange={handleChange}
                       id="email"
+                      name="email"
                       className="border p-3 dark:bg-indigo-700 dark:text-gray-300  dark:border-gray-700 shadow-md placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                       type="email"
                       placeholder="Email"
@@ -46,7 +95,9 @@ function Login() {
                       Password
                     </label>
                     <input
+                      onChange={handleChange}
                       id="password"
+                      name="password"
                       className="border p-3 shadow-md dark:bg-indigo-700 dark:text-gray-300  dark:border-gray-700 placeholder:text-base focus:scale-105 ease-in-out duration-300 border-gray-300 rounded-lg w-full"
                       type="password"
                       placeholder="Password"
@@ -70,15 +121,15 @@ function Login() {
                 </form>
                 <div className="flex flex-col mt-4 items-center justify-center text-sm">
                   <h3 className="dark:text-gray-300">
-                    Don't have an account?
-                    <a
+                    Don&apos;t have an account?
+                    <Link
+                      href="/auth/register"
                       className="group text-blue-400 transition-all duration-100 ease-in-out"
-                      href="#"
                     >
                       <span className="bg-left-bottom bg-gradient-to-r from-blue-400 to-blue-400 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                         Sign Up
                       </span>
-                    </a>
+                    </Link>
                   </h3>
                 </div>
                 {/* Third Party Authentication Options */}

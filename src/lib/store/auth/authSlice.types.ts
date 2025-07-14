@@ -1,11 +1,13 @@
 import { Status } from "../global/types"
 
-export interface IUserData{
-    email: string,
-    password: string
+export interface IUser{
+    username:string | null,
+    email: string | null,
+    password: string | null,
+    token: string | null
 }
 
-export interface IInitialData{
-    user :IUserData,
+export interface IAuthState{
+    user :IUser,
     status:Status
 }

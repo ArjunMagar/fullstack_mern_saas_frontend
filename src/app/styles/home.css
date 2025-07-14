@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@media (max-width: 1150px) {
+  nav {
+    position: fixed;
+    top: 80px;
+    left: -100%; /* change from right to left */
+    width: 80%;
+    height: calc(100vh - 80px);
+    background: white;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1); /*shadow on right edge */
+    transition: all 0.4s ease;
+    z-index: 999;
+  }
+
+  nav.active {
+    left: 0; /*show sidebar by sliding it in from the left */
+  }
+  .mobile-toggle {
+    display: block !important;
+  }
+
+  .navbar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* spacing between items */
+  }
+}
+
+
+/* css */
+.nav-search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 2px 20px 5px 20px;
+}
+
+.nav-search input {
+  flex: 1;
+  padding: 10px 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 30px;
+  font-size: 1rem;
+}
+
+.nav-search button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+}
+
+.nav-search button i {
+  font-size: 1rem;
+}
+
+.navbar {
+  /* display:flex; */
+  padding-top: 7px; /* for home, service, about.. */
+}
+
+/* logo */
+.logo-text {
+  font-size: 1.6rem !important;
+}
+
+/* whole css */

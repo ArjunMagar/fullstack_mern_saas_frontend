@@ -1,14 +1,14 @@
 "use client";
-import { loginUser } from "@/lib/store/auth/authSlice";
+import {loginUser } from "@/lib/store/auth/authSlice";
 import { Status } from "@/lib/store/global/types";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import Link from "next/link";
 function Login() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { status, user } = useAppSelector((store) => store.auth);
+  const { status, token } = useAppSelector((store) => store.auth);
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -34,12 +34,17 @@ function Login() {
   }, []);
 
   useEffect(() => {
-    if (status === Status.Success && user.token) {
+    if (status === Status.Success && token) {
       router.push("/");
     } else {
       router.push("/auth/login");
     }
-  }, [status, user.token]);
+  }, [status,token]);
+
+  const handleClickGoogle =(e: MouseEvent<HTMLButtonElement>)=>{
+    e.preventDefault();
+     window.location.href = 'http://localhost:4000/api/auth/google'
+  }
 
   return (
     <>
@@ -137,7 +142,7 @@ function Login() {
                   id="third-party-auth"
                   className="flex items-center justify-center mt-5 flex-wrap"
                 >
-                  <button className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 w-full rounded-lg m-1 flex justify-center">
+                  <button onClick={handleClickGoogle} className="hover:scale-105 ease-in-out duration-300 shadow-lg p-2 w-full rounded-lg m-1 flex justify-center">
                     <img
                       className="max-w-[25px] "
                       src="https://ucarecdn.com/8f25a2ba-bdcf-4ff1-b596-088f330416ef/"

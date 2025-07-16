@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import "./styles/home.css";
+import Image from "next/image";
 
 function Home() {
   const [isNavOpen, setNavOpen] = useState(false);
@@ -132,12 +133,12 @@ function Home() {
           <div className="container">
             <div className="hero-content">
               <h1>
-                Welcome to <span>A Code Master</span> Academy
+                Launch your <span>online Educational Institute</span> within few
+                minutes.
               </h1>
               <p>
-                We transform ideas into powerful digital solutions through
-                cutting-edge software development and comprehensive training
-                programs.
+                Build a LMS website, manage your all digital study contents and
+                deliver all over Nepal with DigitalPathshala
               </p>
               <div className="hero-btns">
                 <a href="#services" className="btn">
@@ -148,66 +149,31 @@ function Home() {
                 </a>
               </div>
             </div>
-            <div className="hero-content" style={{ margin: "15px 0px" }}>
+            <div className="hero-content" style={{ margin: "14px 0px" }}>
               {token ? (
-                <Link href={""}>
-                  <div
-                    className="btn btn-outline"
-                    style={{
-                      background: "linear-gradient(135deg, #2563eb, #8b5cf6)",
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: 20,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "white",
-                      fontSize: "1.5rem",
-                      padding: 11,
-                      textAlign: "center",
-                    }}
-                  >
+                <Link href={"/institute"}>
+                  <div className="btn btn-outline">
                     Click here to Create Institute
                   </div>
                 </Link>
               ) : (
-                <div
-                  style={{
-                    background: "linear-gradient(135deg, #2563eb, #8b5cf6)",
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: 20,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "white",
-                    fontSize: "1.5rem",
-                    padding: 11,
-                    textAlign: "center",
-                  }}
-                >
-                  Please! Register a New Account to Create Institute...
-                </div>
+                <Link href={"/auth/register"}>
+                  <div className="btn btn-outline">
+                    Please! Signup to Create Institute
+                  </div>
+                </Link>
               )}
             </div>
           </div>
           <div className="hero-image">
-            <div
-              style={{
-                background: "linear-gradient(135deg, #2563eb, #8b5cf6)",
-                width: "100%",
-                height: "100%",
-                borderRadius: 20,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "white",
-                fontSize: "1.5rem",
-                padding: 20,
-                textAlign: "center",
-              }}
-            >
-              Please! Register a New Account to Create Institute...
+            <div className="flex items-center justify-center ">
+              <Image
+                src="/image/heros.jpeg" // Path to your image in the public folder
+                alt="My Photo"
+                width={775} // Desired width
+                height={0} // Desired height
+                className="rounded-lg shadow-lg"
+              />
             </div>
           </div>
         </section>
@@ -529,7 +495,7 @@ function Home() {
             <div className="footer-grid">
               <div className="footer-about">
                 <div className="footer-logo">
-                  A Code<span>Master</span>
+                  Digital<span>Pathshala</span>
                 </div>
                 <p>
                   Transforming businesses and empowering developers through
@@ -598,21 +564,22 @@ function Home() {
                 <h3>Contact Info</h3>
                 <ul>
                   <li>
-                    <i className="fas fa-map-marker-alt" /> Rubavu, Rwanda
+                    <i className="fas fa-map-marker-alt" /> Tulsipur, Dang
                   </li>
                   <li>
-                    <i className="fas fa-envelope" /> mfuranzizahamza@gmail.com
+                    <i className="fas fa-envelope" />{" "}
+                    digitalpathshalanepal@gmail.com
                   </li>
                   <li>
-                    <i className="fas fa-phone" /> +250 796 132 866
+                    <i className="fas fa-phone" /> 9864660603
                   </li>
                 </ul>
               </div>
             </div>
             <div className="copyright">
               <p>
-                © 2023 A Code Master Academy. All Rights Reserved. Created by
-                Mfuranziza Dusabe Hamza
+                © 2025 Digitalpathshala. All Rights Reserved. Created by Arjun
+                Kumar Pun
               </p>
             </div>
           </div>

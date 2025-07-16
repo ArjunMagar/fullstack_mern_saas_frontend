@@ -16,7 +16,7 @@ function Register() {
         email: "",
         password: ""
     })
-    console.log(data,"input check")
+    
     //handling type garkeo kura
     const handleRegisterDataChange = (e:ChangeEvent<HTMLInputElement>)=>{
         const {name,value} = e.target

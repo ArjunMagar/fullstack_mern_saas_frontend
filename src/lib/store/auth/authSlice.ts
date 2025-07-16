@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import API from "@/lib/http";
-import { IAuthState } from "./authSlice.types";
+import { IAuthState, IUser } from "./authSlice.types";
 import { Status } from "../global/types";
 import { IRegisterData } from "@/app/auth/register/register.types";
 import { Ilogin } from "@/app/auth/login/login.types";
@@ -9,10 +9,9 @@ import { Ilogin } from "@/app/auth/login/login.types";
 const initialState: IAuthState = {
     user: {
         username: "",
-        email: "",
-        password: "",
-        token: "",
+        email: ""        
     },
+    token:"",
     status: Status.Loading,
 };
 
@@ -24,12 +23,15 @@ const authSlice = createSlice({
             state.status = action.payload;
         },
         setToken(state: IAuthState, action: PayloadAction<string>) {
-            state.user.token = action.payload;
+            state.token = action.payload;
         },
+        setUser(state:IAuthState,action:PayloadAction<IUser>){
+            state.user= action.payload
+        }
     },
 });
 
-const { setStatus, setToken } = authSlice.actions;
+export const { setUser,setStatus, setToken } = authSlice.actions;
 export default authSlice.reducer;
 
 export function registerUser(data: IRegisterData) {
@@ -71,3 +73,4 @@ export function loginUser(data: Ilogin) {
         }
     };
 }
+

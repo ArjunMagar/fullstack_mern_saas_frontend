@@ -4,12 +4,10 @@ import { Iinstitute } from "./institute.types";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
 import { createInstitute } from "@/lib/store/institute/instituteSlice";
 import { Status } from "@/lib/store/global/types";
-import { useRouter } from "next/navigation";
 
 function CreateInstitute() {
   const { status } = useAppSelector((state) => state.institute);
   const dispatch = useAppDispatch();
-  const router = useRouter();
 
   const [data, setData] = useState<Iinstitute>({
     instituteName: "",
@@ -38,13 +36,16 @@ function CreateInstitute() {
   };
 
   useEffect(() => {
-    if (status === Status.Error) {
+ 
+    if (status === Status.Success) {
+      alert("Institute created successfully, Please! login again as institute");
+      localStorage.removeItem("token")
+      window.location.href = "/auth/login"
+    }else if(status === Status.Error) {
       alert("Institute already created !!!");
-      window.location.href = "/";
-    } else if (status === Status.Success) {
-      alert("Institute created successfully");
-    
+      window.location.href = "/institute/dashboard";
     }
+
   }, [status]);
 
   return (

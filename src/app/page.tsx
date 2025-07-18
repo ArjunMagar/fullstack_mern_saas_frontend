@@ -3,8 +3,25 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import "./styles/home.css";
 import Image from "next/image";
+import { useAppSelector } from "@/lib/store/hooks";
+import { IDecodedToken } from "./institute/institute.types";
+import { jwtDecode } from "jwt-decode";
 
 function Home() {
+  const { role } = useAppSelector((store) => store.auth.user);
+  const [DecodedToken,setDToken]= useState<IDecodedToken>()
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded: IDecodedToken = jwtDecode(token);
+        setDToken(decoded)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, []);
+
   const [isNavOpen, setNavOpen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
@@ -149,7 +166,10 @@ function Home() {
                 </a>
               </div>
             </div>
-            <div className="hero-content" style={{ margin: "14px 0px" }}>
+            <div
+              className="hero-content"
+              style={{ margin: "14px 0px 8px 0px" }}
+            >
               {token ? (
                 <Link href={"/institute"}>
                   <div className="btn btn-outline">
@@ -163,6 +183,11 @@ function Home() {
                   </div>
                 </Link>
               )}
+            </div>
+            <div className="hero-content">
+              {(role === "institute" || DecodedToken?.role ==="institute") &&(<Link href="/institute/dashboard" className="btn btn-outline">
+                  Go to the Institute
+                </Link>)}
             </div>
           </div>
           <div className="hero-image">

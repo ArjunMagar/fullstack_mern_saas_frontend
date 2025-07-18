@@ -9,7 +9,8 @@ import { Ilogin } from "@/app/auth/login/login.types";
 const initialState: IAuthState = {
     user: {
         username: "",
-        email: ""        
+        email: ""  ,
+        role:""      
     },
     token:"",
     status: Status.Loading,
@@ -60,6 +61,7 @@ export function loginUser(data: Ilogin) {
                 dispatch(setStatus(Status.Success));
                 if (response.data.token) {
                     dispatch(setToken(response.data.token));
+                    dispatch(setUser(response.data.data))
                     localStorage.setItem("token", response.data.token);
                 } else {
                     dispatch(setStatus(Status.Error));

@@ -3,6 +3,7 @@ import { Status } from "../global/types"
 export interface IUser{
     username:string | null,
     email: string | null,
+    role:string | null
 }
 
 export interface IAuthState{

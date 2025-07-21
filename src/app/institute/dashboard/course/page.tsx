@@ -1,4 +1,19 @@
+"use client";
+import { fetchCourses } from "@/lib/store/course/courseSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
+import { useEffect } from "react";
+
 function Course() {
+  const { courses } = useAppSelector((store) => store.courses);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      dispatch(fetchCourses(token));
+    }
+  }, []);
+
   return (
     <>
       <div>
@@ -28,213 +43,66 @@ function Course() {
               <thead>
                 <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                   <th className="py-3 px-6 text-left">ID</th>
-                  <th className="py-3 px-6 text-left">Name</th>
-                  <th className="py-3 px-6 text-left">Email</th>
-                  <th className="py-3 px-6 text-left">Role</th>
+                  <th className="py-3 px-6 text-left">CourseName</th>
+                  <th className="py-3 px-6 text-left">Price</th>
+                  <th className="py-3 px-6 text-left">Duration</th>
+                  <th className="py-3 px-6 text-left">Level</th>
+                  <th className="py-3 px-6 text-left">CategoryName</th>
+                  <th className="py-3 px-6 text-left">CreatedAt</th>
+                  <th className="py-3 px-6 text-left">UpdatedAt</th>
                   <th className="py-3 px-6 text-center">Actions</th>
                 </tr>
               </thead>
               <tbody className="text-gray-600 text-sm">
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left">1</td>
-                  <td className="py-3 px-6 text-left">Abhiraj k</td>
-                  <td className="py-3 px-6 text-left">abhi@kerala.com</td>
-                  <td className="py-3 px-6 text-left">Admin</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left">2</td>
-                  <td className="py-3 px-6 text-left">Ayyam Perumal</td>
-                  <td className="py-3 px-6 text-left">ayyam@kerala.com</td>
-                  <td className="py-3 px-6 text-left">Manager</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left">3</td>
-                  <td className="py-3 px-6 text-left">George Thomas</td>
-                  <td className="py-3 px-6 text-left">george@kerala.com</td>
-                  <td className="py-3 px-6 text-left">User</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left">4</td>
-                  <td className="py-3 px-6 text-left">Vasudev Menon</td>
-                  <td className="py-3 px-6 text-left">vasudev@kerala.com</td>
-                  <td className="py-3 px-6 text-left">Admin</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-200 hover:bg-gray-100">
-                  <td className="py-3 px-6 text-left">5</td>
-                  <td className="py-3 px-6 text-left">Mandan Pillai</td>
-                  <td className="py-3 px-6 text-left">mandan@kerala.com</td>
-                  <td className="py-3 px-6 text-left">User</td>
-                  <td className="py-3 px-6 text-center">
-                    <div className="flex item-center justify-center">
-                      <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                          />
-                        </svg>
-                      </button>
-                      <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </td>
-                </tr>
+                {courses.length > 0 &&
+                  courses.map((course) => {
+                    return (
+                      <tr key={course.courseId} className="border-b border-gray-200 hover:bg-gray-100">
+                        <td className="py-3 px-6 text-left">{course.courseId}</td>
+                        <td className="py-3 px-6 text-left">{course.courseName}</td>
+                        <td className="py-3 px-6 text-left">{course.coursePrice}</td>
+                        <td className="py-3 px-6 text-left">{course.courseDuration}</td>
+                        <td className="py-3 px-6 text-left">{course.courseLevel}</td>
+                        <td className="py-3 px-6 text-left">{course.categoryName}</td>
+                        <td className="py-3 px-6 text-left">{new Date(course.createdAt).toLocaleDateString()}</td>
+                        <td className="py-3 px-6 text-left">{new Date(course.updatedAt).toLocaleDateString()}</td>
+                        <td className="py-3 px-6 text-center">
+                          <div className="flex item-center justify-center">
+                            <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                />
+                              </svg>
+                            </button>
+                            <button className="w-4 mr-2 transform hover:text-red-500 hover:scale-110">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="currentColor"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>

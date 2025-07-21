@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./auth/authSlice"
 import instituteSlice  from "./institute/instituteSlice";
 import categorySlice from "./category/categorySlice"
+import courseSlice from "./course/courseSlice"
 export const makeStore = () => {
     return configureStore({
       reducer: {
         auth: authSlice,
         institute:instituteSlice,
-        category: categorySlice
+        category: categorySlice,
+        courses:courseSlice
   
       },
     })

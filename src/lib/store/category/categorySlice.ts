@@ -16,7 +16,7 @@ const categorySlice = createSlice({
         setStatus(state: ICategoryState, action: PayloadAction<Status>) {
             state.status = action.payload
         },
-        resetStatus(state) {
+        resetStatus(state:ICategoryState) {
             state.status = Status.Loading
         },
         setCategory(state:ICategoryState, action: PayloadAction<ICategory[]>) {

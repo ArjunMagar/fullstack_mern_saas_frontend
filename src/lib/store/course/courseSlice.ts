@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../global/types";
-import { ICourse, ICourseState } from "./courseSlice.types";
+import { Icourse, ICourse, ICourseState } from "./courseSlice.types";
 import API from "@/lib/http";
 import { AppDispatch } from "../store";
 
@@ -18,6 +18,12 @@ const courseSlice = createSlice({
         },
         setCourse(state:ICourseState, action:PayloadAction<ICourse[]>) {
             state.courses = action.payload
+        },
+        resetStatus(state:ICourseState){
+            state.status = Status.Loading
+        },
+        addCourse(state:ICourseState,action:PayloadAction<ICourse>){
+            state.courses.push(action.payload)
         }
 
 
@@ -25,7 +31,7 @@ const courseSlice = createSlice({
 })
 
 
-export const { setStatus, setCourse } = courseSlice.actions
+export const { setStatus, setCourse, resetStatus, addCourse} = courseSlice.actions
 export default courseSlice.reducer
 
 
@@ -40,6 +46,32 @@ export function fetchCourses(token: string) {
             if(response.status === 200){
                 dispatch(setStatus(Status.Success))
                 dispatch(setCourse(response.data.data))
+                dispatch(resetStatus())
+            }else{
+                dispatch(setStatus(Status.Error))
+            }
+          
+        } catch (error) {
+            console.log(error)
+            dispatch(setStatus(Status.Error))
+        }
+    }
+}
+
+export function createCourses(token: string,data:Icourse) {
+    return async function createCoursesThunk(dispatch: AppDispatch) {
+        try {
+            const response = await API.post('/institute/course',data, {
+                headers: {
+                    Authorization: `${token}`,
+                    "Content-Type": "multipart/form-data"
+                }
+            })
+            console.log(response,"chekc.........")
+            if(response.status === 201){
+                dispatch(setStatus(Status.Success))
+                dispatch(addCourse(response.data.data))
+
             }else{
                 dispatch(setStatus(Status.Error))
             }

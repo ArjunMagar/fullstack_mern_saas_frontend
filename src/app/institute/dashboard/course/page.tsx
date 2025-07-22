@@ -1,11 +1,14 @@
 "use client";
 import { fetchCourses } from "@/lib/store/course/courseSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import Modal from "./components/modal/Modal";
 
 function Course() {
   const { courses } = useAppSelector((store) => store.courses);
   const dispatch = useAppDispatch();
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -14,6 +17,9 @@ function Course() {
     }
   }, []);
 
+  const openModal = useCallback(() => setIsModalOpen(true), []);
+  const closeModal = useCallback(() => setIsModalOpen(false), []);
+
   return (
     <>
       <div>
@@ -21,6 +27,7 @@ function Course() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Kerala User Listing Table</title>
         <div className="container mx-auto px-4 py-8">
+          {isModalOpen && <Modal closeModal={closeModal} />}
           <h1 className="text-3xl font-bold text-center mb-8"> Course</h1>
           {/* Search and Add User (Static) */}
           <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -31,9 +38,9 @@ function Course() {
                 className="w-full px-4 py-2 rounded-md border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <a href="https://abhirajk.vercel.app/" target="blank">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
-                Add New User
+            <a href="#" target="">
+              <button onClick={openModal} className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">
+                + Add Course
               </button>
             </a>
           </div>
@@ -57,15 +64,34 @@ function Course() {
                 {courses.length > 0 &&
                   courses.map((course) => {
                     return (
-                      <tr key={course.courseId} className="border-b border-gray-200 hover:bg-gray-100">
-                        <td className="py-3 px-6 text-left">{course.courseId}</td>
-                        <td className="py-3 px-6 text-left">{course.courseName}</td>
-                        <td className="py-3 px-6 text-left">{course.coursePrice}</td>
-                        <td className="py-3 px-6 text-left">{course.courseDuration}</td>
-                        <td className="py-3 px-6 text-left">{course.courseLevel}</td>
-                        <td className="py-3 px-6 text-left">{course.categoryName}</td>
-                        <td className="py-3 px-6 text-left">{new Date(course.createdAt).toLocaleDateString()}</td>
-                        <td className="py-3 px-6 text-left">{new Date(course.updatedAt).toLocaleDateString()}</td>
+                      <tr
+                        key={course.courseId}
+                        className="border-b border-gray-200 hover:bg-gray-100"
+                      >
+                        <td className="py-3 px-6 text-left">
+                          {course.courseId}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {course.courseName}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {course.coursePrice}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {course.courseDuration}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {course.courseLevel}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {course.categoryName}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {new Date(course.createdAt).toLocaleDateString()}
+                        </td>
+                        <td className="py-3 px-6 text-left">
+                          {new Date(course.updatedAt).toLocaleDateString()}
+                        </td>
                         <td className="py-3 px-6 text-center">
                           <div className="flex item-center justify-center">
                             <button className="w-4 mr-2 transform hover:text-blue-500 hover:scale-110">

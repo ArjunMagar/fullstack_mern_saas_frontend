@@ -1,21 +1,25 @@
 import { Status } from "../global/types";
 
-export interface ICourse{
+export interface Icourse {
+    courseName: string,
+    coursePrice: string,
+    courseDuration: string,
+    courseDescription: string,
+    courseLevel: string,
+    courseImage: File | string,
+    categoryId: string,
+}
+export interface ICourse extends Icourse {
     courseId: string,
-    courseName:string,
-    coursePrice:string,
-    courseDuration:string,
-    courseDescription:string,
-    courseLevel:string,
-    courseThumbnail:string,
-    categoryName:string,
-    categoryDescription:string,
-    createdAt:string,
-    updatedAt:string
-} 
+    courseThumbnail: string,
+    categoryName: string,
+    categoryDescription: string,
+    createdAt: string,
+    updatedAt: string
+}
 
 
-export interface ICourseState{
-    courses:ICourse[],
-    status:Status
+export interface ICourseState {
+    courses: ICourse[],
+    status: Status
 }
